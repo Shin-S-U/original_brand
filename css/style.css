@@ -369,12 +369,6 @@ footer {
 
 /* アニメーション（軽め） */
 @media (prefers-reduced-motion: no-preference) {
-  [data-rise] {
-    opacity: 0;
-    transform: translateY(8px);
-    animation: rise .7s ease .05s both;
-  }
-
   [data-rise="2"] { animation-delay: .12s; }
   [data-rise="3"] { animation-delay: .18s; }
   [data-rise="4"] { animation-delay: .24s; }
@@ -387,3 +381,19 @@ footer {
   }
 }
 
+/* ===== Rise visibility control ===== */
+/* 初期は非表示 */
+[data-rise] { opacity: 0; transform: translateY(8px); }
+/* is-visible になるまでアニメ無効化（上書き） */
+[data-rise]:not(.is-visible) { animation: none !important; }
+/* 交差したら可視化 */
+[data-rise].is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 可視になったタイミングでのみアニメ開始 */
+  [data-rise].is-visible { animation: rise .7s ease .05s both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-rise] { transition: none !important; }
+  [data-rise].is-visible { animation: none !important; }
+}
