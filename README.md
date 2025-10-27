@@ -1,23 +1,13 @@
 # original_brand
-<!-- SiteURL -->
-## 概要
-授業での制作課題
-オリジナルウェブサイト作成
-## サイトについて
+学校での制作課題（オリジナルサイト制作）として作成したWebサイトです。  
+デザイン性と操作性の両立を意識し、HTML / CSS / JavaScript（ES6）を使用して構築しました。
 
+## 🖥 サイト概要
+本サイトは1ページ構成のブランドサイトです。  
+メインビジュアルからフッターまでの流れを意識し、  
+アニメーションやレスポンシブデザインを取り入れています。
 
-
-## 使用技術
-* 使用言語
-  * HTML (HTML Living Standard)
-  * CSS (CSS3)
-  * JavaScript (ES6)
-* 使用ツール
-  * Figma
-  * Adobe Photoshop
-## サイトマップ
-* 
-* 
-* 
-* 
-* 
+## 🧩 使用技術
+- HTML Living Standard  
+- CSS3（Flexbox / Animation / Media Queries）  
+- JavaScript (ES6)
