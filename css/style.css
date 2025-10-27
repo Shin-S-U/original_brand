@@ -102,6 +102,11 @@ nav ul {
   background: rgba(255, 255, 255, .02);
 }
 
+.nav a.is-active {
+  border-color: rgba(124, 195, 255, .35);
+  background: rgba(124, 195, 255, .08);
+}
+
 /* ===== ボタン ===== */
 .btn {
   display: inline-block;
@@ -156,11 +161,22 @@ nav ul {
   font-size: clamp(16px, 2.5vw, 18px);
 }
 
+/* Hero subtitle */
+.hero-sub {
+  color: #d7e4ea;
+  font-size: clamp(18px, 2.8vw, 22px);
+}
+
+/* Hide legacy hero text (mojibake) if present */
+.hero p:not(.hero-sub) { display: none; }
+
 .hero-media {
   position: relative;
   border-radius: var(--radius);
   overflow: hidden;
-  background: linear-gradient(180deg, #0c1217, #0b0f12);
+  background:
+    linear-gradient(180deg, rgba(12, 18, 23, .85), rgba(11, 15, 18, .85)),
+    url('../images/AI_24911400019_TP_V.jpeg') center/cover no-repeat;
   border: 1px solid var(--line);
 }
 
@@ -206,6 +222,7 @@ nav ul {
 section {
   padding: 80px 0;
   border-bottom: 1px solid var(--line);
+  scroll-margin-top: 84px; /* sticky header offset */
 }
 
 .section-head {
@@ -285,6 +302,21 @@ h2 {
   font-weight: 700;
   font-family: Outfit, Inter, sans-serif;
   letter-spacing: .1em;
+}
+
+/* Media fit */
+.hero-media .frame picture,
+.hero-media .frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.shot img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 /* ===== マニフェスト ===== */
