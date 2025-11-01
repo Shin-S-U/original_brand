@@ -1,15 +1,17 @@
 /* ===== Variables ===== */
 :root {
-  --bg: #0b0f12;              /* 背景 (深い青黒) */
-  --card: #0f151a;            /* カード背景 */
-  --muted: #7e8a93;           /* 補助テキスト */
-  --text: #e6ebee;            /* 主要テキスト */
-  --brand: #7cc3ff;           /* アクセント (クールブルー) */
-  --brand-2: #88ffd6;         /* サブアクセント (ミント) */
-  --line: rgba(255, 255, 255, .08); /* 罫線 */
+  --bg: #0b0f12;              /* Background: deep blue-black */
+  --card: #0f151a;            /* Card background */
+  --muted: #7e8a93;           /* Supporting text */
+  --text: #e6ebee;            /* Primary text */
+  --brand: #7cc3ff;           /* Accent (cool blue) */
+  --brand-2: #88ffd6;         /* Secondary accent (mint) */
+  --line: rgba(255, 255, 255, .08); /* Border lines */
   --radius: 20px;
   --shadow: 0 10px 30px rgba(0, 0, 0, .45);
   --maxw: 1200px;
+  --intro-duration: 2600ms;
+  --fade: .6s;
 }
 
 *, *::before, *::after {
@@ -27,7 +29,7 @@ body {
     radial-gradient(1000px 500px at 10% 10%, rgba(136, 255, 214, .10), transparent 55%),
     var(--bg);
   color: var(--text);
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "ヒラギノ角ゴ ProN", Meiryo, sans-serif;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
   line-height: 1.6;
 }
 
@@ -56,7 +58,71 @@ a {
   white-space: nowrap;
 }
 
-/* ===== ナビゲーション ===== */
+/* ===== Intro overlay ===== */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 48px 24px;
+  background:
+    radial-gradient(900px 600px at 18% -12%, rgba(136, 255, 214, .14), transparent 60%),
+    radial-gradient(840px 560px at 82% 0%, rgba(124, 195, 255, .18), transparent 58%),
+    rgba(11, 15, 18, .94);
+  color: var(--text);
+  text-align: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--fade) ease, visibility 0s linear 0s;
+}
+
+.intro[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+.intro__inner {
+  max-width: 420px;
+  display: grid;
+  gap: 18px;
+  padding: 48px 36px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(12, 18, 23, .92), rgba(11, 15, 18, .88));
+  box-shadow: var(--shadow);
+}
+
+.intro__eyebrow {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: .3em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.intro__title {
+  margin: 0;
+  font-family: Outfit, Inter, sans-serif;
+  font-size: clamp(38px, 7vw, 70px);
+  letter-spacing: .34em;
+}
+
+.intro__copy {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.intro__skip {
+  justify-self: center;
+  padding: 14px 28px;
+}
+
+body:not(.is-ready) .site {
+  pointer-events: none;
+}
+
+/* ===== Navigation ===== */
 header {
   position: sticky;
   top: 0;
@@ -107,7 +173,7 @@ nav ul {
   background: rgba(124, 195, 255, .08);
 }
 
-/* ===== ボタン ===== */
+/* ===== Buttons ===== */
 .btn {
   display: inline-block;
   padding: 12px 18px;
@@ -134,7 +200,7 @@ nav ul {
   background: transparent;
 }
 
-/* ===== ヒーロー ===== */
+/* ===== Hero ===== */
 .hero {
   position: relative;
   isolation: isolate;
@@ -166,9 +232,6 @@ nav ul {
   color: #d7e4ea;
   font-size: clamp(18px, 2.8vw, 22px);
 }
-
-/* Hide legacy hero text (mojibake) if present */
-.hero p:not(.hero-sub) { display: none; }
 
 .hero-media {
   position: relative;
@@ -218,7 +281,7 @@ nav ul {
   font-size: 12px;
 }
 
-/* ===== セクション共通 ===== */
+/* ===== Section base ===== */
 section {
   padding: 80px 0;
   border-bottom: 1px solid var(--line);
@@ -251,7 +314,7 @@ h2 {
   color: var(--muted);
 }
 
-/* ===== グリッド Features ===== */
+/* ===== Feature grid ===== */
 .features {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -278,7 +341,7 @@ h2 {
   color: var(--muted);
 }
 
-/* ===== ギャラリー ===== */
+/* ===== Gallery ===== */
 .gallery {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -319,7 +382,7 @@ h2 {
   object-fit: cover;
 }
 
-/* ===== マニフェスト ===== */
+/* ===== Manifest ===== */
 .manifest {
   display: grid;
   grid-template-columns: 1.1fr .9fr;
@@ -351,7 +414,7 @@ h2 {
   background: rgba(255, 255, 255, .02);
 }
 
-/* ===== CONTACT フォーム ===== */
+/* ===== Contact form ===== */
 form.card {
   display: block;
 }
@@ -360,7 +423,7 @@ form.card label {
   display: block;
 }
 
-/* ===== フッター ===== */
+/* ===== Footer ===== */
 footer {
   padding: 48px 0 80px;
 }
@@ -376,7 +439,7 @@ footer {
   padding-top: 18px;
 }
 
-/* ===== レスポンシブ ===== */
+/* ===== Responsive ===== */
 @media (max-width: 980px) {
   .card {
     grid-column: span 6;
@@ -399,7 +462,7 @@ footer {
   }
 }
 
-/* アニメーション（軽め） */
+/* ===== Rise animation timing ===== */
 @media (prefers-reduced-motion: no-preference) {
   [data-rise="2"] { animation-delay: .12s; }
   [data-rise="3"] { animation-delay: .18s; }
@@ -414,15 +477,15 @@ footer {
 }
 
 /* ===== Rise visibility control ===== */
-/* 初期は非表示 */
+/* Hidden by default */
 [data-rise] { opacity: 0; transform: translateY(8px); }
-/* is-visible になるまでアニメ無効化（上書き） */
+/* Disable animation until element becomes visible */
 [data-rise]:not(.is-visible) { animation: none !important; }
-/* 交差したら可視化 */
+/* Reveal once intersecting */
 [data-rise].is-visible { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* 可視になったタイミングでのみアニメ開始 */
+  /* Start animation only after becoming visible */
   [data-rise].is-visible { animation: rise .7s ease .05s both; }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -3,6 +3,7 @@
 
 /* ===========================================================
    L.U.X.E. — Core interactions
+   - Intro overlay auto-dismiss (skip, scroll, keyboard)
    - Auto year update
    - Smooth in-page scrolling (respects reduced motion)
    - ScrollSpy (active nav link)
@@ -40,6 +41,57 @@
 
   // ===== Init when DOM ready
   document.addEventListener("DOMContentLoaded", () => {
+    // 0) Intro overlay gating
+    const root = document.documentElement;
+    const intro = $(".intro");
+    const setIntroDuration = (value) => {
+      const next = parseFloat(value);
+      if (!Number.isFinite(next)) return;
+      root.style.setProperty("--intro-duration", `${next}ms`);
+    };
+
+    if (intro) {
+      const skip = $(".intro__skip", intro);
+      let closed = false;
+
+      function closeIntro() {
+        if (closed) return;
+        closed = true;
+        intro.style.transition = "opacity var(--fade) ease, visibility 0s linear var(--fade)";
+        intro.style.opacity = "0";
+        intro.style.visibility = "hidden";
+        intro.setAttribute("aria-hidden", "true");
+        document.body.classList.add("is-ready");
+        window.removeEventListener("scroll", closeIntro);
+        window.removeEventListener("keydown", onKey);
+      }
+
+      function onKey(event) {
+        if (event.key === "Enter" || event.key === "Escape" || event.key === " ") {
+          closeIntro();
+        }
+      }
+
+      const durationValue = getComputedStyle(root).getPropertyValue("--intro-duration");
+      const parsed = parseFloat(durationValue);
+      const delay = prefersReduced ? 800 : (Number.isFinite(parsed) ? parsed : 2600);
+      setTimeout(closeIntro, delay);
+
+      if (skip) skip.addEventListener("click", closeIntro);
+      window.addEventListener("scroll", closeIntro, { once: true, passive: true });
+      window.addEventListener("keydown", onKey);
+
+      root.style.overflowY = "hidden";
+      setTimeout(() => {
+        root.style.overflowY = "";
+      }, 400);
+
+    } else {
+      document.body.classList.add("is-ready");
+    }
+
+    window.LUXEIntro = setIntroDuration;
+
     // 1) Auto year update
     const yearEl = $("#y");
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
