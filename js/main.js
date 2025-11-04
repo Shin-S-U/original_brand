@@ -2,183 +2,121 @@
 "use strict";
 
 /* ===========================================================
-   L.U.X.E. — Core interactions
-   - Intro overlay auto-dismiss (skip, scroll, keyboard)
-   - Auto year update
-   - Smooth in-page scrolling (respects reduced motion)
-   - ScrollSpy (active nav link)
-   - Reveal on scroll for [data-rise] via IntersectionObserver
+   L.U.X.E. — Single page experience
+   - Splash screen control (provided spec)
+   - Smooth anchor scrolling & scroll spy
+   - Reveal animation trigger for [data-animate]
+   - Footer year auto update
    =========================================================== */
 
-(function () {
-  // ===== Preferences
-  const prefersReduced =
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+(() => {
+  const splash = document.getElementById("splash");
+  const end = () => document.body.classList.add("loaded");
 
-  // ===== Helpers
-  const $ = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+  const hardKill = setTimeout(end, 10000);
 
-  // Throttle utility (for scroll events)
-  const throttle = (fn, wait = 100) => {
-    let last = 0, timer = null;
-    return (...args) => {
-      const now = Date.now();
-      const remain = wait - (now - last);
-      if (remain <= 0) {
-        last = now;
-        fn(...args);
-      } else if (!timer) {
-        timer = setTimeout(() => {
-          last = Date.now();
-          timer = null;
-          fn(...args);
-        }, remain);
-      }
-    };
-  };
+  window.addEventListener("load", () => {
+    clearTimeout(hardKill);
+    setTimeout(end, 2400);
+  });
 
-  // ===== Init when DOM ready
   document.addEventListener("DOMContentLoaded", () => {
-    // 0) Intro overlay gating
-    const root = document.documentElement;
-    const intro = $(".intro");
-    const setIntroDuration = (value) => {
-      const next = parseFloat(value);
-      if (!Number.isFinite(next)) return;
-      root.style.setProperty("--intro-duration", `${next}ms`);
-    };
+    setTimeout(end, 16000);
+  });
 
-    if (intro) {
-      const skip = $(".intro__skip", intro);
-      let closed = false;
-
-      function closeIntro() {
-        if (closed) return;
-        closed = true;
-        intro.style.transition = "opacity var(--fade) ease, visibility 0s linear var(--fade)";
-        intro.style.opacity = "0";
-        intro.style.visibility = "hidden";
-        intro.setAttribute("aria-hidden", "true");
-        document.body.classList.add("is-ready");
-        window.removeEventListener("scroll", closeIntro);
-        window.removeEventListener("keydown", onKey);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      if (!document.body.classList.contains("loaded")) {
+        setTimeout(end, 1200);
       }
+    });
+  }
 
-      function onKey(event) {
-        if (event.key === "Enter" || event.key === "Escape" || event.key === " ") {
-          closeIntro();
-        }
-      }
+  if (splash) {
+    splash.addEventListener("click", end);
+  }
+})();
 
-      const durationValue = getComputedStyle(root).getPropertyValue("--intro-duration");
-      const parsed = parseFloat(durationValue);
-      const delay = prefersReduced ? 800 : (Number.isFinite(parsed) ? parsed : 2600);
-      setTimeout(closeIntro, delay);
+const prefersReduced =
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      if (skip) skip.addEventListener("click", closeIntro);
-      window.addEventListener("scroll", closeIntro, { once: true, passive: true });
-      window.addEventListener("keydown", onKey);
-
-      root.style.overflowY = "hidden";
-      setTimeout(() => {
-        root.style.overflowY = "";
-      }, 400);
-
-    } else {
-      document.body.classList.add("is-ready");
+const throttle = (fn, wait = 100) => {
+  let last = 0;
+  let timer = null;
+  return (...args) => {
+    const now = Date.now();
+    const remaining = wait - (now - last);
+    if (remaining <= 0) {
+      last = now;
+      fn(...args);
+    } else if (!timer) {
+      timer = setTimeout(() => {
+        last = Date.now();
+        timer = null;
+        fn(...args);
+      }, remaining);
     }
+  };
+};
 
-    window.LUXEIntro = setIntroDuration;
+document.addEventListener("DOMContentLoaded", () => {
+  const navLinks = Array.from(document.querySelectorAll('.site-nav a[href^="#"]'));
+  const sections = navLinks
+    .map((link) => document.querySelector(link.getAttribute("href")))
+    .filter(Boolean);
 
-    // 1) Auto year update
-    const yearEl = $("#y");
-    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
-
-    // 2) Smooth in-page scrolling (+ accessibility)
-    $$('a[href^="#"]').forEach((a) => {
-      a.addEventListener("click", (e) => {
-        const href = a.getAttribute("href");
-        if (!href || href === "#" || href === "#0") return;
-
-        // Top shortcut
-        if (href === "#top") {
-          e.preventDefault();
-          window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
-          return;
-        }
-
-        // Normal anchors
-        const id = href.slice(1);
-        const target = document.getElementById(id);
-        if (!target) return;
-
-        e.preventDefault();
-        // Allow for sticky header offset using scroll-margin-top in CSS
-        target.scrollIntoView({
-          behavior: prefersReduced ? "auto" : "smooth",
-          block: "start"
-        });
-
-        // Manage focus for a11y without jump
-        const prevTabIndex = target.getAttribute("tabindex");
-        target.setAttribute("tabindex", "-1");
-        target.focus({ preventScroll: true });
-        setTimeout(() => {
-          if (prevTabIndex === null) target.removeAttribute("tabindex");
-          else target.setAttribute("tabindex", prevTabIndex);
-        }, 600);
-
-        // Update URL hash without page jump
-        if (history && history.pushState) {
-          history.pushState(null, "", `#${id}`);
-        } else {
-          location.hash = `#${id}`;
-        }
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const id = link.getAttribute("href").slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({
+        behavior: prefersReduced ? "auto" : "smooth",
+        block: "start"
       });
     });
-
-    // 3) ScrollSpy (active nav link)
-    const navLinks = $$('nav a[href^="#"]');
-    const sections = navLinks
-      .map((a) => $(a.getAttribute("href")))
-      .filter(Boolean);
-
-    const updateActive = () => {
-      const y = window.scrollY + 120; // early activation
-      let current = sections[0];
-      for (const sec of sections) {
-        if (sec.offsetTop <= y) current = sec;
-      }
-      navLinks.forEach((a) => {
-        const isActive = a.getAttribute("href") === `#${current.id}`;
-        if (isActive) a.classList.add("is-active");
-        else a.classList.remove("is-active");
-      });
-    };
-
-    if (sections.length) {
-      updateActive();
-      document.addEventListener("scroll", throttle(updateActive, 100), { passive: true });
-      window.addEventListener("resize", throttle(updateActive, 150));
-    }
-
-    // 4) Reveal on scroll for [data-rise]
-    const riseEls = $$("[data-rise]");
-    if (riseEls.length && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
-              io.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.12 }
-      );
-      riseEls.forEach((el) => io.observe(el));
-    }
   });
-})();
+
+  const updateActive = () => {
+    const fromTop = window.scrollY + 150;
+    let current = sections[0];
+    for (const section of sections) {
+      if (section.offsetTop <= fromTop) current = section;
+    }
+    navLinks.forEach((link) => {
+      const isActive = link.getAttribute("href") === `#${current?.id}`;
+      link.classList.toggle("is-active", isActive);
+    });
+  };
+
+  if (sections.length) {
+    updateActive();
+    window.addEventListener("scroll", throttle(updateActive, 150));
+    window.addEventListener("resize", throttle(updateActive, 200));
+  }
+
+  const animated = document.querySelectorAll("[data-animate]");
+  if (animated.length && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    animated.forEach((el) => io.observe(el));
+  } else {
+    animated.forEach((el) => el.classList.add("is-visible"));
+  }
+
+  const yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = String(new Date().getFullYear());
+  }
+});

@@ -1,145 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>L.U.X.E.</title>
-    <meta name="description" content="L.U.X.E. blends quiet futurism with elevated craft. Discover the brand system, digital experience, and philosophy.">
-    <meta name="theme-color" content="#0b0f12">
+    <title>L.U.X.E — AIが紡ぐ近未来のブランド</title>
+    <meta name="description" content="L.U.X.EはAI × 創造力 × デザインで近未来のブランド体験を構築するスタジオです。">
+    <meta name="theme-color" content="#030712">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/destyle.css">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap">
+    </noscript>
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <a href="#main" class="visually-hidden">Skip to main content</a>
+    <a href="#home" class="skip-link">メインコンテンツへ移動</a>
 
-    <div class="intro" role="dialog" aria-modal="true" aria-label="L.U.X.E. intro">
-      <div class="intro__inner">
-        <p class="intro__eyebrow">FUTURE · QUIET · LUXURY</p>
-        <h1 class="intro__title">L.U.X.E.</h1>
-        <p class="intro__copy">A calm prelude to the brand experience. Scroll, press enter, or skip to begin.</p>
-        <button type="button" class="btn btn--primary intro__skip">Enter site</button>
+    <div class="luxe-layers" aria-hidden="true">
+      <div class="luxe-layer luxe-layer--background"></div>
+      <div class="luxe-layer luxe-layer--noise"></div>
+      <div class="luxe-layer luxe-layer--screen"></div>
+    </div>
+
+    <!-- Opening Splash -->
+    <div id="splash" role="dialog" aria-modal="true" aria-label="Opening">
+      <div class="mark">
+        <div class="ring" aria-hidden="true"></div>
+        <div class="logo">L U X E</div>
       </div>
     </div>
 
-    <div class="site">
-      <header>
-        <div class="container nav">
-          <div class="logo" aria-label="L.U.X.E.">L.U.X.E.</div>
-          <nav aria-label="Primary">
-            <ul>
-              <li><a href="#about">About</a></li>
-              <li><a href="#product">Product</a></li>
-              <li><a href="#gallery">Gallery</a></li>
-            </ul>
-          </nav>
-          <a class="btn btn--primary" href="#contact">Start a Project</a>
-        </div>
-      </header>
+    <header class="site-header" aria-label="グローバルナビゲーション">
+      <div class="container header-grid">
+        <a class="brand-mark" href="#home" aria-label="L.U.X.E">L.U.X.E.</a>
+        <nav class="site-nav" aria-label="Primary">
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#brand">Brand</a></li>
+            <li><a href="#product">Product</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <a class="btn btn--outline" href="#contact">Consultation</a>
+      </div>
+    </header>
 
-      <main id="main">
-        <section class="hero">
-          <div class="container hero-grid">
-            <div>
-              <div class="eyebrow" data-rise>FUTURE · QUIET · LUXURY</div>
-              <h1 data-rise="2">L.U.X.E.</h1>
-              <p class="hero-sub" data-rise="3">AI crafts the next quiet luxury brands.</p>
-              <p data-rise="3">
-                L.U.X.E. shapes elevated brand worlds that balance hush and futurism—minimal layouts, tactile UIs, and precision interactions that feel bespoke.
+    <main id="main">
+      <section id="home" class="section hero">
+        <div class="container hero-grid">
+          <div class="hero-copy" data-animate>
+            <p class="eyebrow">AI × 創造力 × デザイン</p>
+            <h1>L.U.X.E.</h1>
+            <p class="lead">
+              静謐なラグジュアリーを纏ったAIブランドスタジオ。<br>
+              黒の余白にネオンブルーを差し込み、「未来のショールーム」のような没入体験を設計します。
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn--solid" href="#brand">Philosophy</a>
+              <a class="btn btn--ghost" href="#product">Our Works</a>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="orbit">
+              <div class="orbit__ring"></div>
+              <div class="orbit__core">
+                <span>Quiet Luxury</span>
+                <span>Immersive Web</span>
+                <span>AI Crafted</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="brand" class="section brand">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Brand</h2>
+            <h3 class="section-subtitle">コンセプトと目的</h3>
+            <p class="section-intro">黒を基調にネオンアクセントを添え、テクノロジーと静けさが共存する世界観を提示します。</p>
+          </div>
+          <div class="brand-panels">
+            <article class="panel glass" data-animate>
+              <h3>コンセプト</h3>
+              <ul>
+                <li>「AI × 創造力 × デザイン」をテーマに近未来的でスタイリッシュな表現を採用。</li>
+                <li>ネオンカラーのアクセントでテクノロジーの世界観を演出し、没入感を高める。</li>
+                <li>ブランドの一貫性と体験価値を重視し、未来のショールームのようなサイトを目指す。</li>
+              </ul>
+            </article>
+            <article class="panel glass" data-animate>
+              <h3>目的</h3>
+              <p>
+                オリジナルブランド「L.U.X.E.」を通じて、AI技術と創造力から生まれる未来のプロダクトをデザイン。
+                Web上でブランドの世界観を体験できることで、利用者にワクワク感と未来への想像を提供します。
               </p>
-              <div class="hero-badges" data-rise="4">
-                <span class="badge">Brand System</span>
-                <span class="badge">Web Experience</span>
-                <span class="badge">Design Ops</span>
-              </div>
-              <div style="display:flex; gap:10px; margin-top:22px" data-rise="4">
-                <a class="btn btn--primary" href="#work">View Work</a>
-                <a class="btn btn--ghost" href="#about">About Us</a>
-              </div>
-            </div>
-
-            <div class="hero-media" aria-hidden="true">
-              <div class="frame">
-                <svg width="100%" height="100%" viewBox="0 0 1200 675" role="img" aria-label="L.U.X.E. Visual">
-                  <defs>
-                    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stop-color="#7cc3ff" stop-opacity=".9" />
-                      <stop offset="100%" stop-color="#88ffd6" stop-opacity=".8" />
-                    </linearGradient>
-                  </defs>
-                  <rect x="0" y="0" width="1200" height="675" fill="#0b0f12" />
-                  <circle cx="350" cy="220" r="180" fill="url(#g1)" opacity=".18" />
-                  <circle cx="900" cy="420" r="240" fill="url(#g1)" opacity=".12" />
-                  <text x="80" y="360" fill="#dfe6ea" font-family="Outfit, Inter" font-size="92" letter-spacing="14">L · U · X · E</text>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="about">
-          <!-- TODO: Add content -->
-        </section>
-        <section id="product">
-          <div class="container section-head">
-            <div>
-              <div class="eyebrow">PRODUCT</div>
-              <h2>AI × Imagination × Design</h2>
-            </div>
-            <p class="lead">From product UI to web experience and brand systems, we accelerate vision with AI and design craft.</p>
-          </div>
-          <div class="container gallery">
-            <figure class="shot"><img src="images/ai2445CITY001-image_TP_V.jpg" alt="City 001" loading="lazy" decoding="async"></figure>
-            <figure class="shot"><img src="images/ai2445CITY008-image_TP_V.jpg" alt="City 008" loading="lazy" decoding="async"></figure>
-            <figure class="shot"><img src="images/AI_24911400019_TP_V.jpeg" alt="Texture" loading="lazy" decoding="async"></figure>
-            <figure class="shot">
-              <picture>
-                <source type="image/webp" srcset="images/aig-ai230829B024-xl_TP_V.webp">
-                <img src="images/ai2445CITY001-image_TP_V.jpg" alt="Abstract light" loading="lazy" decoding="async">
-              </picture>
-            </figure>
-          </div>
-        </section>
-
-        <section id="gallery">
-          <div class="container section-head">
-            <div>
-              <div class="eyebrow">GALLERY</div>
-              <h2>Selected Gallery</h2>
-            </div>
-          </div>
-          <div class="container gallery">
-            <figure class="shot"><img src="images/ai2445CITY008-image_TP_V.jpg" alt="Gallery 1" loading="lazy" decoding="async"></figure>
-            <figure class="shot"><img src="images/AI_24911400019_TP_V.jpeg" alt="Gallery 2" loading="lazy" decoding="async"></figure>
-            <figure class="shot"><img src="images/ai2445CITY001-image_TP_V.jpg" alt="Gallery 3" loading="lazy" decoding="async"></figure>
-            <figure class="shot">
-              <picture>
-                <source type="image/webp" srcset="images/aig-ai230829B024-xl_TP_V.webp">
-                <img src="images/AI_24911400019_TP_V.jpeg" alt="Gallery 4" loading="lazy" decoding="async">
-              </picture>
-            </figure>
-          </div>
-        </section>
-
-      </main>
-
-      <footer>
-        <div class="container foot">
-          <div style="display:flex; align-items:center; gap:10px">
-            <span class="logo" aria-label="L.U.X.E.">L.U.X.E.</span>
-            <span>© <span id="y"></span> L.U.X.E. All rights reserved.</span>
-          </div>
-          <div style="display:flex; gap:14px">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#top" aria-label="Back to top">Top ↑</a>
+            </article>
           </div>
         </div>
-      </footer>
+      </section>
 
-    </div>
+      <section id="product" class="section product">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Product</h2>
+            <h3 class="section-subtitle">架空の未来製品を体験に</h3>
+            <p class="section-intro">AIコラボレーションで生まれるブランドシステム、UI、空間演出を横断的に制作します。</p>
+          </div>
+          <div class="product-grid">
+            <article class="card" data-animate>
+              <span class="card__tag">01</span>
+              <h3>Brand Systems</h3>
+              <p>言語設計・トーン&マナー・ビジュアルコードをAIと共創し、瞬時に世界観を共有できるガイドを設計。</p>
+            </article>
+            <article class="card" data-animate>
+              <span class="card__tag">02</span>
+              <h3>Immersive Web</h3>
+              <p>WebGLライクな深度感や音体験を軽量な実装で再現し、訪れるたびにアップデートされるオンラインギャラリーを構築。</p>
+            </article>
+            <article class="card" data-animate>
+              <span class="card__tag">03</span>
+              <h3>AI Crafted UI</h3>
+              <p>生成AIのリサーチと微調整を経て、プライベートジェットの操作パネルのようなUIをプロトタイピング。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" class="section gallery">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Gallery</h2>
+            <h3 class="section-subtitle">Quiet Neon Visuals</h3>
+          </div>
+          <div class="gallery-grid">
+            <figure data-animate><img src="images/ai2445CITY008-image_TP_V.jpg" alt="City 008"></figure>
+            <figure data-animate><img src="images/ai2445CITY001-image_TP_V.jpg" alt="City 001"></figure>
+            <figure data-animate><img src="images/AI_24911400019_TP_V.jpeg" alt="Texture detail"></figure>
+            <figure data-animate><img src="images/ai2445CITY001-image_TP_V.jpg" alt="Light sculpture"></figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact">
+        <div class="container contact-grid">
+          <div data-animate>
+            <h2 class="section-title">Contact</h2>
+            <h3 class="section-subtitle">静かに始まるプロジェクト</h3>
+            <p class="section-intro">ブランド刷新、デジタルフラッグシップ、AIプロトタイプなど、ご相談内容に応じてクローズドに対応します。</p>
+            <ul class="contact-detail">
+              <li><span>Mail</span><a href="mailto:hello@luxe.studio">hello@luxe.studio</a></li>
+              <li><span>Location</span>Tokyo / Remote Worldwide</li>
+            </ul>
+          </div>
+          <form class="contact-form" data-animate>
+            <label>
+              <span>お名前</span>
+              <input type="text" name="name" placeholder="L.U.X.E. 担当者" required>
+            </label>
+            <label>
+              <span>メールアドレス</span>
+              <input type="email" name="email" placeholder="contact@example.com" required>
+            </label>
+            <label>
+              <span>ご相談内容</span>
+              <textarea name="message" rows="4" placeholder="ブランド刷新について..." required></textarea>
+            </label>
+            <button class="btn btn--solid" type="submit">Send Message</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container foot-grid">
+        <p>© <span id="year"></span> L.U.X.E. Crafted with AI imagination.</p>
+        <div class="foot-links">
+          <a href="#brand">Philosophy</a>
+          <a href="#product">Services</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
 
     <script src="js/main.js" defer></script>
   </body>
