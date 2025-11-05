@@ -226,17 +226,18 @@ body.loaded #splash {
 
 /* ===== Header ===== */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 120;
   backdrop-filter: blur(18px);
-  background: rgba(3, 7, 18, .75);
+  background: rgba(3, 7, 18, .78);
   border-bottom: 1px solid var(--line);
 }
 
 .header-grid {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 24px;
   min-height: 70px;
 }
@@ -251,6 +252,7 @@ body.loaded #splash {
   display: flex;
   gap: 24px;
   flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .site-nav a {
@@ -336,7 +338,7 @@ body.loaded #splash {
 
 /* ===== Hero ===== */
 .hero {
-  padding-top: clamp(6rem, 14vw, 10rem);
+  padding-top: clamp(7.5rem, 16vw, 11.5rem);
 }
 
 .hero-grid {
