@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AERIS Product Detail — L.U.X.E.</title>
+    <meta name="description" content="AERISシリーズの詳細を確認できます。">
+    <meta name="theme-color" content="#030712">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap">
+    </noscript>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body class="product-page loaded">
+    <a href="#main" class="skip-link">メインコンテンツへ移動</a>
+
+    <div class="luxe-layers" aria-hidden="true">
+      <div class="luxe-layer luxe-layer--background"></div>
+      <div class="luxe-layer luxe-layer--noise"></div>
+      <div class="luxe-layer luxe-layer--screen"></div>
+    </div>
+
+    <header class="site-header" aria-label="グローバルナビゲーション">
+      <div class="container header-grid">
+        <a class="brand-mark" href="index.html#home" aria-label="L.U.X.E.">L.U.X.E.</a>
+        <nav class="site-nav" aria-label="Primary">
+          <ul>
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#brand">About</a></li>
+            <li><a href="index.html#product">Product</a></li>
+            <li><a href="index.html#gallery">Gallery</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="section detail">
+        <div class="container detail-grid">
+          <div class="detail-copy" data-animate>
+            <p class="eyebrow" id="detail-tag">Product</p>
+            <h1 id="detail-title">AERIS</h1>
+            <p class="detail-tagline" id="detail-tagline"></p>
+            <p class="lead" id="detail-description">読み込み中...</p>
+            <ul class="detail-stats" id="detail-stats"></ul>
+            <ul class="detail-features" id="detail-features"></ul>
+            <div class="detail-actions">
+              <a class="btn btn--solid" href="index.html#gallery">ギャラリーに戻る</a>
+            </div>
+          </div>
+          <div class="detail-visual" data-animate>
+            <img id="detail-image" src="" alt="">
+            <p class="detail-message" id="detail-message" hidden>指定された製品が見つかりません。ギャラリーから再度お試しください。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container foot-grid">
+        <p>© <span id="year"></span> L.U.X.E. Crafted with AI imagination.</p>
+        <div class="foot-links">
+          <a href="index.html#brand">Philosophy</a>
+          <a href="index.html#product">Services</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js" defer></script>
+    <script src="js/product.js" defer></script>
+  </body>
+</html>
