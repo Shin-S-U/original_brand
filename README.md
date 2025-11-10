@@ -1,4 +1,4 @@
-# original_brand
+# L.U.X.E. HP
 学校での制作課題（オリジナルサイト制作）として作成したWebサイトです。  
 デザイン性と操作性の両立を意識し、HTML / CSS / JavaScript（ES6）を使用して構築しました。
 
