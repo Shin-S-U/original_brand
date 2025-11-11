@@ -662,28 +662,32 @@ body.loaded #splash {
   margin: 0;
 }
 
+.product-tile__body p + p {
+  margin-top: .65em;
+}
+
 .product-tile:hover .product-tile__body {
   max-height: 400px;
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
-  transition-delay: .35s, .45s, .45s;
+  transition-delay: .45s, .65s, .65s;
 }
 
 .product-tile[data-theme="nature"] {
-  --tile-image: linear-gradient(135deg, rgba(38, 72, 46, .85), rgba(3, 7, 18, .95));
+  --tile-image: url("../images/product1.png");
 }
 
 .product-tile[data-theme="air"] {
-  --tile-image: linear-gradient(135deg, rgba(78, 62, 33, .65), rgba(3, 7, 18, .95));
+  --tile-image: url("../images/product2.png");
 }
 
 .product-tile[data-theme="community"] {
-  --tile-image: linear-gradient(135deg, rgba(32, 59, 44, .75), rgba(3, 7, 18, .95));
+  --tile-image: url("../images/product3.png");
 }
 
 .product-tile[data-theme="climate"] {
-  --tile-image: linear-gradient(135deg, rgba(35, 36, 55, .8), rgba(3, 7, 18, .9));
+  --tile-image: url("../images/product4.png");
 }
 
 @media (max-width: 640px) {
