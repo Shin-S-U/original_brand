@@ -1,4 +1,4 @@
-// js/main.js
+﻿// js/main.js
 "use strict";
 
 /* ===========================================================
@@ -195,4 +195,16 @@ document.addEventListener("DOMContentLoaded", () => {
   } catch (_) {
     // fail quietly if productCatalog is not available
   }
-});
+
+  // AI teaser: static image
+  try {
+    const media = document.querySelector(".ai-teaser__media");
+    if (media) {
+      media.innerHTML = '<img src="images/AERISmodel.png" alt="AERIS AIモデル" loading="lazy" />';
+    }
+  } catch (_) {
+    // no-op
+  }
+
+
+  });
