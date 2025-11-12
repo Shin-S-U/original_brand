@@ -298,48 +298,127 @@
               <span aria-hidden="true">&lt;</span>
             </button>
             <div class="gallery-grid" role="list">
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-drone" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.drone.png" alt="AERIS drone concept"></figure>
-            </button>
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-fridge" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.fridge.png" alt="AERIS smart fridge concept"></figure>
-            </button>
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-grass" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.grass.png" alt="AERIS urban garden concept"></figure>
-            </button>
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-horo" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.horo.png" alt="AERIS holographic interface concept"></figure>
-            </button>
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-key" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.key.png" alt="AERIS smart key concept"></figure>
-            </button>
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-knob" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.knob.jpg" alt="AERIS control knob concept"></figure>
-            </button>
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-lens" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.lens.png" alt="AERIS wearable lens concept"></figure>
-            </button>
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-neck" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.neck.png" alt="AERIS wearable speaker concept"></figure>
-            </button>
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-pen" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.pen.png" alt="AERIS smart pen concept"></figure>
-            </button>
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-pods" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.pods.png" alt="AERIS ear pods concept"></figure>
-            </button>
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-ring" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.ring.png" alt="AERIS ring controller concept"></figure>
-            </button>
-            <button class="gallery-item" type="button" role="listitem" data-id="m1-speaker" aria-controls="gallery-detail">
-              <figure data-animate><img src="images/m1.speaker.png" alt="AERIS speaker concept"></figure>
-            </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-drone" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.drone.png" alt="AERIS drone concept"></figure>
+              </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-fridge" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.fridge.png" alt="AERIS smart fridge concept"></figure>
+              </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-grass" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.grass.png" alt="AERIS urban garden concept"></figure>
+              </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-horo" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.horo.png" alt="AERIS holographic interface concept"></figure>
+              </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-key" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.key.png" alt="AERIS smart key concept"></figure>
+              </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-knob" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.knob.jpg" alt="AERIS control knob concept"></figure>
+              </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-lens" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.lens.png" alt="AERIS wearable lens concept"></figure>
+              </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-neck" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.neck.png" alt="AERIS wearable speaker concept"></figure>
+              </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-pen" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.pen.png" alt="AERIS smart pen concept"></figure>
+              </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-pods" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.pods.png" alt="AERIS ear pods concept"></figure>
+              </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-ring" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.ring.png" alt="AERIS ring controller concept"></figure>
+              </button>
+              <button class="gallery-item" type="button" role="listitem" data-id="m1-speaker" aria-controls="gallery-detail">
+                <figure data-animate><img src="images/m1.speaker.png" alt="AERIS speaker concept"></figure>
+              </button>
             </div>
             <button class="gallery-nav gallery-nav--next" type="button" aria-label="ギャラリーを右にスクロール">
               <span aria-hidden="true">&gt;</span>
             </button>
           </div>
-          <div id="gallery-detail" class="gallery-detail panel" aria-live="polite" aria-atomic="true"></div>
+          <div id="gallery-detail" class="gallery-detail" aria-live="polite" aria-atomic="true">
+            <article class="product-orbit">
+              <div class="product-media">
+                <div class="product-image-frame">
+                  <img src="images/orbit-drone.jpg" alt="AERIS Drone ORBITコンセプト">
+                  <div class="media-tag">
+                    <span class="media-tag-dot"></span>
+                    <span>MOBILITY DRONE</span>
+                  </div>
+                </div>
+              </div>
+              <div class="product-copy">
+                <div>
+                  <div class="product-kicker">AERIS Mobility</div>
+                  <h1 class="product-title">AERIS Drone</h1>
+                  <div class="product-subtitle">Courier “ORBIT”</div>
+                  <div class="product-tagline">Quiet urban delivery from the sky.</div>
+                  <p class="product-lead">
+                    静音フライトで、都市のラストワンマイルを再定義する配送ドローン。屋上やバルコニー、ビル間のスカイブリッジを結び、
+                    <strong>AERISのAI</strong> があなたのスケジュールと連携して最適なルートを自律飛行。
+                    必要なものを、必要なタイミングで、ほとんど音を立てずに届けます。
+                  </p>
+                </div>
+                <div class="spec-grid">
+                  <article class="spec-card">
+                    <div class="spec-label">Flight</div>
+                    <div class="spec-value">18 km / 25 min</div>
+                    <div class="spec-caption">都市部ラストワンマイルに最適化</div>
+                  </article>
+                  <article class="spec-card">
+                    <div class="spec-label">Payload</div>
+                    <div class="spec-value">2.5 kg</div>
+                    <div class="spec-caption">防水パッケージ対応・ノートPCも輸送可能</div>
+                  </article>
+                  <article class="spec-card">
+                    <div class="spec-label">Noise</div>
+                    <div class="spec-value">35 dB</div>
+                    <div class="spec-caption">深夜モード時の平均フライトノイズ</div>
+                  </article>
+                </div>
+                <div class="feature-list">
+                  <div class="feature-list-title">Key Features</div>
+                  <div class="feature-item">
+                    <div class="feature-bullet"></div>
+                    <div class="feature-label">全天候センサー &amp; 予測航路</div>
+                    <div class="feature-text">
+                      雨量・風向き・ビルの乱気流をリアルタイム解析し、障害物と気流を自動回避。
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-bullet"></div>
+                    <div class="feature-label">AERISと同期するスマート配送</div>
+                    <div class="feature-text">
+                      カレンダーやタスクと連携し、「出かける15分前に玄関前に到着」など時間指定のフライトを自律制御。
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-bullet"></div>
+                    <div class="feature-label">夜間フレンドリーな静音設計</div>
+                    <div class="feature-text">
+                      カーボンブレードと静音プロペラ、低色温度の誘導リングライトで、深夜運用でも周囲の生活を乱さない。
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="feature-list-title" style="margin-top: 4px;">Safety &amp; Privacy</div>
+                  <div class="safety-row">
+                    <div class="safety-pill">
+                      <span class="safety-pill-icon">G</span>
+                      <span>学校・病院・空港上空を自動回避する Geo-Fence</span>
+                    </div>
+                    <div class="safety-pill">
+                      <span class="safety-pill-icon">⛓</span>
+                      <span>フライトログと位置情報のエンドツーエンド暗号化</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 

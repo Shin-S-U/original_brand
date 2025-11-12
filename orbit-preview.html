@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>LUXE — AERIS Drone Courier ORBIT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- フォント（本番サイトに合わせて Outﬁt） -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap">
+
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: #020617;
+      --panel-soft: #020617;
+      --card: #020617;
+      --border-soft: rgba(148, 163, 184, 0.25);
+      --accent: #0ea5e9;
+      --accent-soft: rgba(14, 165, 233, 0.25);
+      --text-main: #e5f0ff;
+      --text-soft: #9ca6c9;
+      --text-muted: #6b7280;
+      --radius-lg: 24px;
+      --radius-card: 18px;
+      --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.8);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top left, #0b1120 0%, #020617 45%, #000 100%);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .product-orbit {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.2fr);
+      gap: 40px;
+      padding: 32px 36px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.14) 0, transparent 40%),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.18) 0, transparent 50%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(28px);
+    }
+
+    .product-media {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-media::before {
+      content: "";
+      position: absolute;
+      inset: 10% 6%;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(125, 211, 252, 0.18), transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(129, 140, 248, 0.22), transparent 60%);
+      opacity: 0.85;
+      filter: blur(6px);
+    }
+
+    .product-image-frame {
+      position: relative;
+      width: 100%;
+      border-radius: 30px;
+      background: radial-gradient(circle at top, #020617, #000814);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95);
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    .product-image-frame span {
+      opacity: 0.7;
+    }
+
+    .media-tag {
+      position: absolute;
+      left: 20px;
+      top: 18px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .media-tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle, var(--accent) 0, transparent 70%);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.9);
+    }
+
+    .product-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .product-kicker {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .product-title {
+      font-size: 40px;
+      line-height: 1.05;
+      letter-spacing: 0.08em;
+      margin: 2px 0 6px;
+    }
+
+    .product-subtitle {
+      font-size: 28px;
+      line-height: 1.1;
+      color: var(--text-soft);
+      margin-bottom: 12px;
+    }
+
+    .product-tagline {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .product-lead {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-soft);
+      max-width: 34em;
+    }
+
+    .product-lead strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .spec-card {
+      position: relative;
+      border-radius: var(--radius-card);
+      padding: 14px 14px 16px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.85);
+      overflow: hidden;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .spec-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.08), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .spec-card:hover {
+      border-color: var(--accent-soft);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .spec-card:hover::before {
+      opacity: 1;
+    }
+
+    .spec-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .spec-value {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .spec-caption {
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--text-soft);
+      opacity: 0.9;
+    }
+
+    .feature-list {
+      margin-top: 16px;
+      padding: 14px 16px 10px;
+      border-radius: 20px;
+      background: radial-gradient(circle at left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .feature-list-title {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .feature-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 8px 10px;
+      align-items: flex-start;
+      font-size: 13px;
+      color: var(--text-soft);
+      padding-block: 4px;
+    }
+
+    .feature-bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      margin-top: 6px;
+      background: radial-gradient(circle, var(--accent) 0, transparent 65%);
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.9);
+    }
+
+    .feature-label {
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .feature-text {
+      grid-column: 2 / -1;
+      color: var(--text-soft);
+    }
+
+    .safety-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .safety-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .safety-pill-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: var(--accent);
+    }
+
+    @media (max-width: 960px) {
+      body {
+        padding: 16px;
+      }
+
+      .product-orbit {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 24px 18px 22px;
+      }
+
+      .product-media {
+        order: -1;
+      }
+
+      .product-title {
+        font-size: 32px;
+      }
+
+      .product-subtitle {
+        font-size: 22px;
+      }
+
+      .spec-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .spec-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .spec-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="product-orbit">
+      <div class="product-media">
+        <div class="product-image-frame">
+          <span>ここに ORBIT ドローンの画像が入ります</span>
+          <div class="media-tag">
+            <span class="media-tag-dot"></span>
+            <span>MOBILITY DRONE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-copy">
+        <div>
+          <div class="product-kicker">AERIS Mobility</div>
+          <h1 class="product-title">AERIS Drone</h1>
+          <div class="product-subtitle">Courier “ORBIT”</div>
+          <div class="product-tagline">Quiet urban delivery from the sky.</div>
+          <p class="product-lead">
+            静音フライトで、都市のラストワンマイルを再定義する配送ドローン。
+            屋上やバルコニー、ビル間のスカイブリッジを結び、
+            <strong>AERISのAI</strong> があなたのスケジュールと連携して最適なルートを自律飛行。
+            必要なものを、必要なタイミングで、ほとんど音を立てずに届けます。
+          </p>
+        </div>
+
+        <div class="spec-grid">
+          <article class="spec-card">
+            <div class="spec-label">Flight</div>
+            <div class="spec-value">18 km / 25 min</div>
+            <div class="spec-caption">都市部ラストワンマイルに最適化</div>
+          </article>
+
+          <article class="spec-card">
+            <div class="spec-label">Payload</div>
+            <div class="spec-value">2.5 kg</div>
+            <div class="spec-caption">防水パッケージ対応・ノートPCも輸送可能</div>
+          </article>
+
+          <article class="spec-card">
+            <div class="spec-label">Noise</div>
+            <div class="spec-value">35 dB</div>
+            <div class="spec-caption">深夜モード時の平均フライトノイズ</div>
+          </article>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature-list-title">Key Features</div>
+
+          <div class="feature-item">
+            <div class="feature-bullet"></div>
+            <div class="feature-label">全天候センサー &amp; 予測航路</div>
+            <div class="feature-text">
+              雨量・風向き・ビルの乱気流をリアルタイム解析し、障害物と気流を自動回避。
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-bullet"></div>
+            <div class="feature-label">AERISと同期するスマート配送</div>
+            <div class="feature-text">
+              カレンダーやタスクと連携し、「出かける15分前に玄関前に到着」など時間指定のフライトを自律制御。
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-bullet"></div>
+            <div class="feature-label">夜間フレンドリーな静音設計</div>
+            <div class="feature-text">
+              カーボンブレードと静音プロペラ、低色温度の誘導リングライトで、深夜運用でも周囲の生活を乱さない。
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="feature-list-title" style="margin-top: 4px;">Safety &amp; Privacy</div>
+          <div class="safety-row">
+            <div class="safety-pill">
+              <span class="safety-pill-icon">G</span>
+              <span>学校・病院・空港上空を自動回避する Geo-Fence</span>
+            </div>
+            <div class="safety-pill">
+              <span class="safety-pill-icon">⛓</span>
+              <span>フライトログと位置情報のエンドツーエンド暗号化</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

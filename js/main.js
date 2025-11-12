@@ -164,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
   try {
     const grid = document.querySelector(".gallery-grid");
     const detail = document.getElementById("gallery-detail");
+    const orbitTemplate = detail?.querySelector(".product-orbit")?.outerHTML || "";
     const prevBtn = document.querySelector(".gallery-nav--prev");
     const nextBtn = document.querySelector(".gallery-nav--next");
 
@@ -225,7 +226,16 @@ document.addEventListener("DOMContentLoaded", () => {
       window.addEventListener("resize", throttledNavState);
       syncNavState();
 
+      const renderOrbitDetail = () => {
+        if (!orbitTemplate) return false;
+        detail.innerHTML = orbitTemplate;
+        return true;
+      };
+
       const renderDetail = (id) => {
+        if (id === "m1-drone" && renderOrbitDetail()) {
+          return;
+        }
         const p = productCatalog[id];
         if (!p) return;
         detail.innerHTML = `
@@ -265,6 +275,11 @@ document.addEventListener("DOMContentLoaded", () => {
         renderDetail(id);
         detail.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
       });
+
+      const defaultItem = grid.querySelector('.gallery-item[data-id="m1-drone"]');
+      if (defaultItem) {
+        defaultItem.classList.add("is-active");
+      }
 
       if (!detail.innerHTML.trim()) {
         detail.innerHTML = '<p class="detail-message">製品を選択すると詳細が表示されます。</p>';
