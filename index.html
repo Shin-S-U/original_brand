@@ -293,7 +293,11 @@
             <h2 class="section-title">Gallery</h2>
             <h3 class="section-subtitle"></h3>
           </div>
-          <div class="gallery-grid" role="list">
+          <div class="gallery-shell">
+            <button class="gallery-nav gallery-nav--prev" type="button" aria-label="ギャラリーを左にスクロール">
+              <span aria-hidden="true">&lt;</span>
+            </button>
+            <div class="gallery-grid" role="list">
             <button class="gallery-item" type="button" role="listitem" data-id="m1-drone" aria-controls="gallery-detail">
               <figure data-animate><img src="images/m1.drone.png" alt="AERIS drone concept"></figure>
             </button>
@@ -329,6 +333,10 @@
             </button>
             <button class="gallery-item" type="button" role="listitem" data-id="m1-speaker" aria-controls="gallery-detail">
               <figure data-animate><img src="images/m1.speaker.png" alt="AERIS speaker concept"></figure>
+            </button>
+            </div>
+            <button class="gallery-nav gallery-nav--next" type="button" aria-label="ギャラリーを右にスクロール">
+              <span aria-hidden="true">&gt;</span>
             </button>
           </div>
           <div id="gallery-detail" class="gallery-detail panel" aria-live="polite" aria-atomic="true"></div>

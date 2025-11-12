@@ -164,6 +164,8 @@ document.addEventListener("DOMContentLoaded", () => {
   try {
     const grid = document.querySelector(".gallery-grid");
     const detail = document.getElementById("gallery-detail");
+    const prevBtn = document.querySelector(".gallery-nav--prev");
+    const nextBtn = document.querySelector(".gallery-nav--next");
 
     if (grid && detail && typeof productCatalog === "object") {
       // ホイールの縦スクロールを横スクロールに変換（ギャラリー範囲内）
@@ -186,6 +188,42 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         { passive: false }
       );
+
+      const syncNavState = () => {
+        const maxScroll = Math.max(0, grid.scrollWidth - grid.clientWidth);
+        if (prevBtn) {
+          prevBtn.disabled = grid.scrollLeft <= 0;
+        }
+        if (nextBtn) {
+          nextBtn.disabled = grid.scrollLeft >= maxScroll - 1;
+        }
+      };
+
+      const throttledNavState = throttle(syncNavState, 120);
+
+      const paginate = (direction) => {
+        const offset = grid.clientWidth ? grid.clientWidth * 0.9 : 320;
+        grid.scrollBy({
+          left: offset * direction,
+          behavior: prefersReduced ? "auto" : "smooth"
+        });
+      };
+
+      if (prevBtn) {
+        prevBtn.addEventListener("click", () => {
+          paginate(-1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener("click", () => {
+          paginate(1);
+        });
+      }
+
+      grid.addEventListener("scroll", throttledNavState);
+      window.addEventListener("resize", throttledNavState);
+      syncNavState();
 
       const renderDetail = (id) => {
         const p = productCatalog[id];
