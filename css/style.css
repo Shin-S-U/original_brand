@@ -136,7 +136,7 @@ h2,
 h3,
 .brand-mark,
 .btn {
-  font-family: "Jokker", "Outfit", "Inter", system-ui, sans-serif;
+  font-family: "Jokker", "Outfit", "Inter", "Noto Sans JP", system-ui, sans-serif;
   font-weight: 600;
   letter-spacing: .18em;
 }
@@ -364,7 +364,7 @@ body.loaded #splash {
   font-size: clamp(1.05rem, 5vw, 3.6rem);
   letter-spacing: .02em;
   line-height: 1.15;
-  font-family: "Product", "Outfit", "Inter", system-ui, sans-serif;
+  font-family: "Product", "Outfit", "Inter", "Noto Sans JP", system-ui, sans-serif;
   white-space: nowrap;
   color: transparent;
   background-image:
@@ -380,7 +380,7 @@ body.loaded #splash {
   color: var(--muted);
   font-size: clamp(1.05rem, 3vw, 1.4rem);
   line-height: 1.7;
-  font-family: "Product", "Outfit", "Inter", system-ui, sans-serif;
+  font-family: "Product", "Outfit", "Inter", "Noto Sans JP", system-ui, sans-serif;
   letter-spacing: .08em;
 }
 
@@ -1059,7 +1059,7 @@ header {
 }
 
 .logo {
-  font-family: Outfit, Inter;
+  font-family: Outfit, Inter, "Noto Sans JP", system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: .28em;
   font-size: 15px;
@@ -1142,7 +1142,7 @@ section {
 }
 
 h2 {
-  font-family: Outfit, Inter;
+  font-family: Outfit, Inter, "Noto Sans JP", system-ui, sans-serif;
   font-size: clamp(24px, 4.8vw, 36px);
   line-height: 1.2;
   margin: 4px 0 0;
