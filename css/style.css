@@ -1335,4 +1335,28 @@ footer {
 
 .panel-list li {
   list-style: disc;
+  margin-bottom: .8rem;
+}
+
+.panel-list li:last-child { margin-bottom: 0; }
+
+.panel-list .list-term {
+  display: block;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--text, #f8fafc);
+}
+
+.panel-list .list-desc {
+  display: block;
+  margin-top: .2rem;
+  color: var(--muted);
+}
+
+.panel-list--compact {
+  padding-left: 0;
+}
+
+.panel-list--compact li {
+  list-style: none;
 }

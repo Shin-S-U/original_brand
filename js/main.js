@@ -120,6 +120,46 @@ document.addEventListener("DOMContentLoaded", () => {
     yearEl.textContent = String(new Date().getFullYear());
   }
 
+  // Companyセクション：テキストボックスと画像の高さを同期
+  (() => {
+    const grid = document.querySelector(".about-block__grid2");
+    if (!grid) return;
+
+    const copy = grid.querySelector(".about-copy");
+    const visual = grid.querySelector(".about-block__visual");
+    if (!copy || !visual) return;
+
+    const mq = window.matchMedia("(max-width: 980px)");
+    const resetHeights = () => {
+      copy.style.minHeight = "";
+      visual.style.minHeight = "";
+    };
+
+    const syncHeights = () => {
+      resetHeights();
+      if (mq.matches) return;
+      const target = Math.max(copy.offsetHeight, visual.offsetHeight);
+      copy.style.minHeight = `${target}px`;
+      visual.style.minHeight = `${target}px`;
+    };
+
+    const throttledSync = throttle(syncHeights, 150);
+    window.addEventListener("resize", throttledSync);
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", syncHeights);
+    } else if (typeof mq.addListener === "function") {
+      mq.addListener(syncHeights);
+    }
+    window.addEventListener("load", syncHeights);
+
+    const img = visual.querySelector("img");
+    if (img && !img.complete) {
+      img.addEventListener("load", syncHeights, { once: true });
+    }
+
+    syncHeights();
+  })();
+
   // Gallery: inline detail switcher
   try {
     const grid = document.querySelector(".gallery-grid");

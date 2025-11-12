@@ -10,11 +10,19 @@
 
 .about-luxe .about-block__grid,
 .about-luxe .about-block__grid2 {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr; /* 画像を大きく */
+  display: flex;
   gap: clamp(1.6rem, 4vw, 2.4rem);
-  align-items: start;
+  align-items: stretch;
 }
+.about-luxe .about-block__grid2 {
+  flex-wrap: nowrap;
+}
+.about-luxe .about-block__grid2 > * {
+  align-self: stretch;
+  min-width: 0;
+}
+.about-luxe .about-block__grid2 .about-copy { flex: 1 1 0; }
+.about-luxe .about-block__grid2 .about-block__visual { flex: 1.2 1 0; }
 
 .about-luxe .card {
   border: 1px solid var(--outline, var(--line));
@@ -31,6 +39,8 @@
   background: var(--glass);
   box-shadow: inset 0 0 30px rgba(125, 211, 252, .05);
   padding: clamp(1rem, 2.6vw, 1.6rem);
+  display: flex;
+  flex-direction: column;
 }
 
 /* 内側の2カラムは背景を持たせない（外側カードの中身として表示） */
@@ -39,8 +49,17 @@
 
 /* Hide original visual inside the left column; use dedicated right visual */
 .about-luxe .about-copy .panel-visual { display: none; }
-.about-luxe .about-block__visual { display: grid; }
-.about-luxe .about-block__visual img { width: 100%; height: auto; border-radius: calc(var(--radius) - 8px); }
+.about-luxe .about-block__visual {
+  display: grid;
+  align-self: stretch;
+  margin: 0;
+}
+.about-luxe .about-block__visual img {
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--radius) - 8px);
+  object-fit: cover;
+}
 
 /* Company の見出しサイズアップと余白調整 */
 .about-luxe .about-copy h3 {
@@ -53,7 +72,18 @@
 /* 段落の改行（1段目は2行分、以降は1行分） */
 .about-luxe .about-copy p { margin: 0; }
 .about-luxe .about-copy p + p { margin-top: .9em; }
-.about-luxe .about-copy p:first-of-type { margin-bottom: 1.8em; }
+.about-luxe .about-copy p:first-of-type:not(.company-tagline) { margin-bottom: 1.8em; }
+.about-luxe .about-copy .company-tagline {
+  margin: 0 0 1rem;
+  font-size: .9rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.about-luxe .about-copy .company-tagline + p {
+  margin-top: 0;
+  margin-bottom: 1.8em;
+}
 
 /* 旧レイアウトの画像は非表示（重複回避） */
 .about-luxe .about-visual { display: none; }
@@ -105,10 +135,21 @@
   border: 1px solid var(--outline, var(--line));
   border-radius: 12px;
 }
+.about-luxe .ai-teaser__details {
+  margin-top: 1rem;
+  font-size: .95rem;
+  line-height: 1.6;
+}
+.about-luxe .ai-teaser__details p {
+  margin: 0 0 .8rem;
+}
+.about-luxe .ai-teaser__details .panel-list { margin: 0; }
 
 @media (max-width: 980px) {
   .about-luxe .about-block__grid,
-  .about-luxe .about-block__grid2 { grid-template-columns: 1fr; }
+  .about-luxe .about-block__grid2 {
+    flex-direction: column;
+  }
   .about-luxe .ai-teaser { grid-template-columns: 1fr; }
   .about-luxe .ai-teaser__media { min-height: 40px; aspect-ratio: 3 / 4; }
   .about-luxe .ai-ph { min-height: 40px; aspect-ratio: 3 / 4; }
