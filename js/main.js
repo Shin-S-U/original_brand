@@ -119,4 +119,80 @@ document.addEventListener("DOMContentLoaded", () => {
   if (yearEl) {
     yearEl.textContent = String(new Date().getFullYear());
   }
+
+  // Gallery: inline detail switcher
+  try {
+    const grid = document.querySelector(".gallery-grid");
+    const detail = document.getElementById("gallery-detail");
+
+    if (grid && detail && typeof productCatalog === "object") {
+      // ホイールの縦スクロールを横スクロールに変換（ギャラリー範囲内）
+      grid.addEventListener(
+        "wheel",
+        (e) => {
+          // 縦方向の入力が強い場合のみ横スクロールに割り当て
+          if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+
+          const atStart = grid.scrollLeft <= 0;
+          const atEnd = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 1;
+          const goingLeft = e.deltaY < 0;
+          const goingRight = e.deltaY > 0;
+
+          // まだスクロール余地があるときだけページスクロールを止める
+          if ((goingRight && !atEnd) || (goingLeft && !atStart)) {
+            e.preventDefault();
+            grid.scrollBy({ left: e.deltaY, behavior: "auto" });
+          }
+        },
+        { passive: false }
+      );
+
+      const renderDetail = (id) => {
+        const p = productCatalog[id];
+        if (!p) return;
+        detail.innerHTML = `
+          <div class="detail-grid">
+            <div class="detail-visual">
+              <img src="${p.image}" alt="${(p.alt || p.title || "").replace(/"/g, '&quot;')}">
+            </div>
+            <div class="detail-copy">
+              <h1>${p.title || ""}</h1>
+              ${p.tag ? `<p class="detail-tagline">${p.tag}</p>` : ""}
+              ${p.tagline ? `<p class=\"lead\">${p.tagline}</p>` : ""}
+              ${p.description ? `<p>${p.description}</p>` : ""}
+              ${Array.isArray(p.stats) && p.stats.length ? `
+                <ul class="detail-stats">
+                  ${p.stats
+                    .map(
+                      (s) => `<li><span class="label">${s.label}</span><span class="value">${s.value}</span></li>`
+                    )
+                    .join("")}
+                </ul>` : ""}
+              ${Array.isArray(p.features) && p.features.length ? `
+                <ul class="detail-features">
+                  ${p.features.map((f) => `<li>${f}</li>`).join("")}
+                </ul>` : ""}
+            </div>
+          </div>
+        `;
+      };
+
+      grid.addEventListener("click", (e) => {
+        const btn = e.target.closest(".gallery-item");
+        if (!btn) return;
+        const id = btn.dataset.id;
+        if (!id) return;
+        e.preventDefault();
+        grid.querySelectorAll(".gallery-item").forEach((b) => b.classList.toggle("is-active", b === btn));
+        renderDetail(id);
+        detail.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+      });
+
+      if (!detail.innerHTML.trim()) {
+        detail.innerHTML = '<p class="detail-message">製品を選択すると詳細が表示されます。</p>';
+      }
+    }
+  } catch (_) {
+    // fail quietly if productCatalog is not available
+  }
 });
