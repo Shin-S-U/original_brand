@@ -170,7 +170,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const baseDetailClasses = detail?.className?.trim() || "";
     const orbitTemplate =
       document.getElementById("orbit-template")?.innerHTML.trim() || "";
-    const placeholderMessage = '<p class="detail-message">画像を選択して詳細を表示</p>';
+    const placeholderMessage = `
+      <div class="hud-console">
+        <div class="hud-console__dots" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="hud-console__grid">
+          <div class="hud-console__media">
+            <span class="hud-console__badge">DEVICE PREVIEW</span>
+            <div class="hud-console__frame" aria-hidden="true">
+              <div class="hud-console__orbit"></div>
+              <div class="hud-console__placeholder">
+                <span>SELECT A PRODUCT ABOVE</span>
+              </div>
+            </div>
+          </div>
+          <div class="hud-console__copy">
+            <div class="hud-console__kicker">PRODUCT DETAIL</div>
+            <div class="hud-console__headline-row">
+              <h3 class="hud-console__headline">デバイスを選択して詳細を表示</h3>
+              <span class="hud-console__status">Idle Console</span>
+            </div>
+            <div class="hud-console__specs">
+              <span class="hud-console__pill">PRIMARY SPEC — — —</span>
+              <span class="hud-console__pill">SECONDARY — — —</span>
+              <span class="hud-console__pill">NOISE / RANGE — — —</span>
+            </div>
+            <p class="hud-console__note">* 上のカードをクリックすると、このコンソールがそれぞれのデバイス用 UI に切り替わります。</p>
+          </div>
+        </div>
+      </div>
+    `;
 
     const applyDetailClasses = (extraClass = "") => {
       if (!detail) return;

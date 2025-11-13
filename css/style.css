@@ -813,14 +813,185 @@ body.loaded #splash {
 
 #gallery-detail[data-state="empty"] {
   border-radius: 32px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  background: rgba(3, 7, 18, 0.75);
-  padding: clamp(1.5rem, 4vw, 2rem);
-  min-height: 180px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background:
+    radial-gradient(circle at 18% -10%, rgba(59, 130, 246, 0.22), transparent 60%),
+    radial-gradient(circle at 85% 120%, rgba(14, 165, 233, 0.18), transparent 55%),
+    rgba(4, 7, 18, 0.9);
+  padding: clamp(1.8rem, 4vw, 3rem);
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(3, 6, 23, 0.75);
+  backdrop-filter: blur(18px);
+}
+
+.hud-console {
+  position: relative;
+}
+
+.hud-console__dots {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.hud-console__dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  opacity: .5;
+}
+
+.hud-console__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+}
+
+.hud-console__media {
+  position: relative;
+  padding-top: 24px;
+}
+
+.hud-console__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  color: rgba(226, 239, 255, 0.85);
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.hud-console__frame {
+  position: relative;
+  margin-top: 16px;
+  border-radius: 28px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(2, 6, 23, 0.7);
+  box-shadow: inset 0 0 40px rgba(15, 118, 255, 0.25);
+  overflow: hidden;
+}
+
+.hud-console__orbit {
+  position: absolute;
+  inset: 18%;
+  border: 1px dashed rgba(148, 163, 184, 0.4);
+  border-radius: 32px;
+  filter: drop-shadow(0 0 10px rgba(94, 234, 212, 0.35));
+  animation: pulseOrbit 6s ease-in-out infinite;
+}
+
+.hud-console__placeholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 24px;
+  border: 1px dashed rgba(148, 163, 184, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 20px 60px rgba(2, 6, 23, 0.65);
+  color: rgba(226, 239, 255, 0.8);
+  font-size: 0.78rem;
+  letter-spacing: 0.4em;
+  text-align: center;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+}
+
+.hud-console__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.hud-console__kicker {
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(125, 211, 252, 0.9);
+}
+
+.hud-console__headline-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hud-console__headline {
+  margin: 0;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.hud-console__status {
+  font-size: 0.85rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.8);
+}
+
+.hud-console__specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hud-console__pill {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(181, 209, 245, 0.75);
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.hud-console__note {
+  margin: 0;
+  font-size: 11px;
+  color: rgba(148, 181, 222, 0.8);
+}
+
+@media (max-width: 900px) {
+  #gallery-detail[data-state="empty"] {
+    border-radius: 24px;
+    padding: clamp(1.2rem, 6vw, 2rem);
+  }
+
+  .hud-console__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hud-console__headline-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@keyframes pulseOrbit {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
 }
 
 /* === AERIS Drone Courier ORBIT セクション === */
