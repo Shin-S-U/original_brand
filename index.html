@@ -236,8 +236,9 @@
                 </div>
                 <div class="product-tile__body">
                   <p>生活・住まい・都市をつなぐAIデバイスを提供します。</p>
-                  <p>AERISを中核に、環境を認識→判断→許可に基づく自動化へ。</p>
-                  <p>ユーザーのAERIS人格はCloud上で管理され、全てのデバイスでリアルタイムに情報が共有されます。</p>
+                  <p>AERISを中核に、環境を認識→判断→許可に基づく自動化へ。<br><br></p>
+                  <p>ユーザーの情報とAERISの人格は、ユーザー一人ひとりに割り当てられた暗号化専用クラウドで管理され、すべての端末で安全に同期されます。</p>
+                  <p>データはL.U.X.Eのサーバー／クラウドから完全に隔離されており、当社を含む第三者がアクセスできない設計です。</p>
                 </div>
               </div>
             </article>
@@ -339,86 +340,87 @@
               <span aria-hidden="true">&gt;</span>
             </button>
           </div>
-          <div id="gallery-detail" class="gallery-detail" aria-live="polite" aria-atomic="true">
-            <article class="product-orbit">
-              <div class="product-media">
-                <div class="product-image-frame">
-                  <img src="images/orbit-drone.jpg" alt="AERIS Drone ORBITコンセプト">
-                  <div class="media-tag">
-                    <span class="media-tag-dot"></span>
-                    <span>MOBILITY DRONE</span>
+          <section id="gallery-detail" aria-live="polite" aria-atomic="true" data-state="empty">
+            <p class="detail-message">画像を選択して詳細を表示</p>
+          </section>
+          <template id="orbit-template">
+            <div class="product-media">
+              <div class="product-image-frame">
+                <img src="images/m1.drone.png" alt="AERIS Drone ORBITコンセプト">
+                <div class="media-tag">
+                  <span class="media-tag-dot"></span>
+                  <span>MOBILITY DRONE</span>
+                </div>
+              </div>
+            </div>
+            <div class="product-copy">
+              <div>
+                <div class="product-kicker">AERIS Mobility</div>
+                <h1 class="product-title">AERIS Drone</h1>
+                <div class="product-subtitle">Courier “ORBIT”</div>
+                <div class="product-tagline">Quiet urban delivery from the sky.</div>
+                <p class="product-lead">
+                  静音フライトで、都市のラストワンマイルを再定義する配送ドローン。屋上やバルコニー、ビル間のスカイブリッジを結び、
+                  <strong>AERISのAI</strong> があなたのスケジュールと連携して最適なルートを自律飛行。
+                  必要なものを、必要なタイミングで、ほとんど音を立てずに届けます。
+                </p>
+              </div>
+              <div class="spec-grid">
+                <article class="spec-card">
+                  <div class="spec-label">Flight</div>
+                  <div class="spec-value">18 km / 25 min</div>
+                  <div class="spec-caption">都市部ラストワンマイルに最適化</div>
+                </article>
+                <article class="spec-card">
+                  <div class="spec-label">Payload</div>
+                  <div class="spec-value">2.5 kg</div>
+                  <div class="spec-caption">防水パッケージ対応・ノートPCも輸送可能</div>
+                </article>
+                <article class="spec-card">
+                  <div class="spec-label">Noise</div>
+                  <div class="spec-value">35 dB</div>
+                  <div class="spec-caption">深夜モード時の平均フライトノイズ</div>
+                </article>
+              </div>
+              <div class="feature-list">
+                <div class="feature-list-title">Key Features</div>
+                <div class="feature-item">
+                  <div class="feature-bullet"></div>
+                  <div class="feature-label">全天候センサー &amp; 予測航路</div>
+                  <div class="feature-text">
+                    雨量・風向き・ビルの乱気流をリアルタイム解析し、障害物と気流を自動回避。
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feature-bullet"></div>
+                  <div class="feature-label">AERISと同期するスマート配送</div>
+                  <div class="feature-text">
+                    カレンダーやタスクと連携し、「出かける15分前に玄関前に到着」など時間指定のフライトを自律制御。
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feature-bullet"></div>
+                  <div class="feature-label">夜間フレンドリーな静音設計</div>
+                  <div class="feature-text">
+                    カーボンブレードと静音プロペラ、低色温度の誘導リングライトで、深夜運用でも周囲の生活を乱さない。
                   </div>
                 </div>
               </div>
-              <div class="product-copy">
-                <div>
-                  <div class="product-kicker">AERIS Mobility</div>
-                  <h1 class="product-title">AERIS Drone</h1>
-                  <div class="product-subtitle">Courier “ORBIT”</div>
-                  <div class="product-tagline">Quiet urban delivery from the sky.</div>
-                  <p class="product-lead">
-                    静音フライトで、都市のラストワンマイルを再定義する配送ドローン。屋上やバルコニー、ビル間のスカイブリッジを結び、
-                    <strong>AERISのAI</strong> があなたのスケジュールと連携して最適なルートを自律飛行。
-                    必要なものを、必要なタイミングで、ほとんど音を立てずに届けます。
-                  </p>
-                </div>
-                <div class="spec-grid">
-                  <article class="spec-card">
-                    <div class="spec-label">Flight</div>
-                    <div class="spec-value">18 km / 25 min</div>
-                    <div class="spec-caption">都市部ラストワンマイルに最適化</div>
-                  </article>
-                  <article class="spec-card">
-                    <div class="spec-label">Payload</div>
-                    <div class="spec-value">2.5 kg</div>
-                    <div class="spec-caption">防水パッケージ対応・ノートPCも輸送可能</div>
-                  </article>
-                  <article class="spec-card">
-                    <div class="spec-label">Noise</div>
-                    <div class="spec-value">35 dB</div>
-                    <div class="spec-caption">深夜モード時の平均フライトノイズ</div>
-                  </article>
-                </div>
-                <div class="feature-list">
-                  <div class="feature-list-title">Key Features</div>
-                  <div class="feature-item">
-                    <div class="feature-bullet"></div>
-                    <div class="feature-label">全天候センサー &amp; 予測航路</div>
-                    <div class="feature-text">
-                      雨量・風向き・ビルの乱気流をリアルタイム解析し、障害物と気流を自動回避。
-                    </div>
+              <div>
+                <div class="feature-list-title" style="margin-top: 4px;">Safety &amp; Privacy</div>
+                <div class="safety-row">
+                  <div class="safety-pill">
+                    <span class="safety-pill-icon">G</span>
+                    <span>学校・病院・空港上空を自動回避する Geo-Fence</span>
                   </div>
-                  <div class="feature-item">
-                    <div class="feature-bullet"></div>
-                    <div class="feature-label">AERISと同期するスマート配送</div>
-                    <div class="feature-text">
-                      カレンダーやタスクと連携し、「出かける15分前に玄関前に到着」など時間指定のフライトを自律制御。
-                    </div>
-                  </div>
-                  <div class="feature-item">
-                    <div class="feature-bullet"></div>
-                    <div class="feature-label">夜間フレンドリーな静音設計</div>
-                    <div class="feature-text">
-                      カーボンブレードと静音プロペラ、低色温度の誘導リングライトで、深夜運用でも周囲の生活を乱さない。
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="feature-list-title" style="margin-top: 4px;">Safety &amp; Privacy</div>
-                  <div class="safety-row">
-                    <div class="safety-pill">
-                      <span class="safety-pill-icon">G</span>
-                      <span>学校・病院・空港上空を自動回避する Geo-Fence</span>
-                    </div>
-                    <div class="safety-pill">
-                      <span class="safety-pill-icon">⛓</span>
-                      <span>フライトログと位置情報のエンドツーエンド暗号化</span>
-                    </div>
+                  <div class="safety-pill">
+                    <span class="safety-pill-icon">⛓</span>
+                    <span>フライトログと位置情報のエンドツーエンド暗号化</span>
                   </div>
                 </div>
               </div>
-            </article>
-          </div>
+            </div>
+          </template>
         </div>
       </section>
 

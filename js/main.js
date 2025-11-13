@@ -163,17 +163,86 @@ document.addEventListener("DOMContentLoaded", () => {
   // Gallery: inline detail switcher
   try {
     const grid = document.querySelector(".gallery-grid");
-    const detail = document.getElementById("gallery-detail");
-    const orbitTemplate = detail?.querySelector(".product-orbit")?.outerHTML || "";
     const prevBtn = document.querySelector(".gallery-nav--prev");
     const nextBtn = document.querySelector(".gallery-nav--next");
+    const detail = document.getElementById("gallery-detail");
+    const hasCatalog = typeof productCatalog === "object";
+    const baseDetailClasses = detail?.className?.trim() || "";
+    const orbitTemplate =
+      document.getElementById("orbit-template")?.innerHTML.trim() || "";
+    const placeholderMessage = '<p class="detail-message">画像を選択して詳細を表示</p>';
 
-    if (grid && detail && typeof productCatalog === "object") {
+    const applyDetailClasses = (extraClass = "") => {
+      if (!detail) return;
+      const classes = [baseDetailClasses, extraClass].filter(Boolean).join(" ").trim();
+      detail.className = classes;
+    };
+
+    const markEmptyState = () => {
+      if (!detail) return;
+      detail.dataset.state = "empty";
+      applyDetailClasses();
+    };
+
+    const markFilledState = () => {
+      if (!detail) return;
+      delete detail.dataset.state;
+      applyDetailClasses("product-orbit");
+    };
+
+    const buildSpecGrid = (stats) => {
+      if (!Array.isArray(stats) || !stats.length) return "";
+      return `
+        <div class="spec-grid">
+          ${stats
+            .map(
+              (s = {}) => `
+                <article class="spec-card">
+                  ${s.label ? `<div class="spec-label">${s.label}</div>` : ""}
+                  ${s.value ? `<div class="spec-value">${s.value}</div>` : ""}
+                  ${s.caption ? `<div class="spec-caption">${s.caption}</div>` : ""}
+                </article>
+              `
+            )
+            .join("")}
+        </div>
+      `;
+    };
+
+    const buildFeatureList = (features) => {
+      if (!Array.isArray(features) || !features.length) return "";
+      return `
+        <div class="feature-list">
+          <div class="feature-list-title">Key Features</div>
+          ${features
+            .map((feature) => {
+              const item = typeof feature === "string" ? { label: feature } : feature || {};
+              return `
+                <div class="feature-item">
+                  <div class="feature-bullet"></div>
+                  ${item.label ? `<div class="feature-label">${item.label}</div>` : ""}
+                  ${item.text ? `<div class="feature-text">${item.text}</div>` : ""}
+                  ${!item.label && !item.text ? `<div class="feature-label">${feature || ""}</div>` : ""}
+                </div>
+              `;
+            })
+            .join("")}
+        </div>
+      `;
+    };
+
+    if (detail && detail.dataset.state === "empty") {
+      if (!detail.innerHTML.trim()) {
+        detail.innerHTML = placeholderMessage;
+      }
+      markEmptyState();
+    }
+
+    if (grid) {
       // ホイールの縦スクロールを横スクロールに変換（ギャラリー範囲内）
       grid.addEventListener(
         "wheel",
         (e) => {
-          // 縦方向の入力が強い場合のみ横スクロールに割り当て
           if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
 
           const atStart = grid.scrollLeft <= 0;
@@ -181,7 +250,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const goingLeft = e.deltaY < 0;
           const goingRight = e.deltaY > 0;
 
-          // まだスクロール余地があるときだけページスクロールを止める
           if ((goingRight && !atEnd) || (goingLeft && !atStart)) {
             e.preventDefault();
             grid.scrollBy({ left: e.deltaY, behavior: "auto" });
@@ -211,24 +279,25 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       if (prevBtn) {
-        prevBtn.addEventListener("click", () => {
-          paginate(-1);
-        });
+        prevBtn.addEventListener("click", () => paginate(-1));
       }
 
       if (nextBtn) {
-        nextBtn.addEventListener("click", () => {
-          paginate(1);
-        });
+        nextBtn.addEventListener("click", () => paginate(1));
       }
 
       grid.addEventListener("scroll", throttledNavState);
       window.addEventListener("resize", throttledNavState);
       syncNavState();
 
+      grid.querySelectorAll(".gallery-item").forEach((btn) => btn.classList.remove("is-active"));
+    }
+
+    if (grid && detail && hasCatalog) {
       const renderOrbitDetail = () => {
         if (!orbitTemplate) return false;
         detail.innerHTML = orbitTemplate;
+        markFilledState();
         return true;
       };
 
@@ -238,31 +307,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const p = productCatalog[id];
         if (!p) return;
+        const mediaTag = p.tag
+          ? `<div class="media-tag"><span class="media-tag-dot"></span><span>${p.tag.toUpperCase()}</span></div>`
+          : "";
+        const mediaContent = p.image
+          ? `<img src="${p.image}" alt="${(p.alt || p.title || "").replace(/"/g, '&quot;')}" loading="lazy">`
+          : `<span>${p.title || "AERIS"}</span>`;
+
         detail.innerHTML = `
-          <div class="detail-grid">
-            <div class="detail-visual">
-              <img src="${p.image}" alt="${(p.alt || p.title || "").replace(/"/g, '&quot;')}">
-            </div>
-            <div class="detail-copy">
-              <h1>${p.title || ""}</h1>
-              ${p.tag ? `<p class="detail-tagline">${p.tag}</p>` : ""}
-              ${p.tagline ? `<p class=\"lead\">${p.tagline}</p>` : ""}
-              ${p.description ? `<p>${p.description}</p>` : ""}
-              ${Array.isArray(p.stats) && p.stats.length ? `
-                <ul class="detail-stats">
-                  ${p.stats
-                    .map(
-                      (s) => `<li><span class="label">${s.label}</span><span class="value">${s.value}</span></li>`
-                    )
-                    .join("")}
-                </ul>` : ""}
-              ${Array.isArray(p.features) && p.features.length ? `
-                <ul class="detail-features">
-                  ${p.features.map((f) => `<li>${f}</li>`).join("")}
-                </ul>` : ""}
+          <div class="product-media">
+            <div class="product-image-frame">
+              ${mediaContent}
+              ${mediaTag}
             </div>
           </div>
+          <div class="product-copy">
+            <div>
+              ${p.tag ? `<div class="product-kicker">${p.tag}</div>` : ""}
+              ${p.title ? `<h1 class="product-title">${p.title}</h1>` : ""}
+              ${p.tagline ? `<div class="product-subtitle">${p.tagline}</div>` : ""}
+              ${p.description ? `<p class="product-lead">${p.description}</p>` : ""}
+            </div>
+            ${buildSpecGrid(p.stats)}
+            ${buildFeatureList(p.features)}
+          </div>
         `;
+        markFilledState();
       };
 
       grid.addEventListener("click", (e) => {
@@ -276,13 +346,9 @@ document.addEventListener("DOMContentLoaded", () => {
         detail.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
       });
 
-      const defaultItem = grid.querySelector('.gallery-item[data-id="m1-drone"]');
-      if (defaultItem) {
-        defaultItem.classList.add("is-active");
-      }
-
       if (!detail.innerHTML.trim()) {
-        detail.innerHTML = '<p class="detail-message">製品を選択すると詳細が表示されます。</p>';
+        detail.innerHTML = placeholderMessage;
+        markEmptyState();
       }
     }
   } catch (_) {
