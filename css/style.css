@@ -441,6 +441,41 @@ body.loaded #splash {
   width: 100%;
 }
 
+body.platform-animate-ready .product-tile {
+  --wave-order: 0;
+}
+
+body.platform-animate-ready .product-tile:not(.is-wave-visible) {
+  opacity: 0;
+  transform: translate3d(0, 48px, 0);
+}
+
+body.platform-animate-ready .product-tile.is-wave-visible {
+  animation: productWaveUp .85s cubic-bezier(.22, .55, .36, .99) both;
+  animation-delay: calc(var(--wave-order, 0) * 120ms);
+}
+
+@keyframes productWaveUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 48px, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.platform-animate-ready .product-tile:not(.is-wave-visible),
+  body.platform-animate-ready .product-tile.is-wave-visible {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
 .product-tile {
   position: relative;
   border-radius: 0;

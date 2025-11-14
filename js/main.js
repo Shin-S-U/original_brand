@@ -170,6 +170,37 @@ document.addEventListener("DOMContentLoaded", () => {
     syncHeights();
   })();
 
+  // Platformセクション：スクロール時のウェーブ演出
+  (() => {
+    const grid = document.querySelector(".product-showcase-grid");
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll(".product-tile"));
+    if (!cards.length) return;
+
+    if (prefersReduced || !("IntersectionObserver" in window)) {
+      cards.forEach((card) => card.classList.add("is-wave-visible"));
+      return;
+    }
+
+    document.body.classList.add("platform-animate-ready");
+    cards.forEach((card, index) => {
+      card.style.setProperty("--wave-order", String(index));
+    });
+
+    const waveObserver = new IntersectionObserver(
+      (entries) => {
+        const hasVisibility = entries.some((entry) => entry.isIntersecting);
+        if (!hasVisibility) return;
+        cards.forEach((card) => card.classList.add("is-wave-visible"));
+        waveObserver.disconnect();
+      },
+      { threshold: 0.35 }
+    );
+
+    waveObserver.observe(grid);
+  })();
+
   // Gallery: inline detail switcher
   try {
     const grid = document.querySelector(".gallery-grid");
