@@ -61,6 +61,16 @@ const throttle = (fn, wait = 100) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  const htmlLang = (document.documentElement.getAttribute("lang") || "ja").toLowerCase();
+  const isEnglish = htmlLang.startsWith("en");
+  const galleryCopy = {
+    placeholderHeadline: isEnglish
+      ? "Select a device to reveal its details"
+      : "デバイスを選択して詳細を表示",
+    placeholderNote: isEnglish
+      ? "* Click any card above to switch this console into that device’s UI."
+      : "* 上のカードをクリックすると、このコンソールがそれぞれのデバイス用 UI に切り替わります。"
+  };
   const navLinks = Array.from(document.querySelectorAll('.site-nav a[href^="#"]'));
   const sections = navLinks
     .map((link) => document.querySelector(link.getAttribute("href")))
@@ -190,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="hud-console__copy">
             <div class="hud-console__kicker">PRODUCT DETAIL</div>
             <div class="hud-console__headline-row">
-              <h3 class="hud-console__headline">デバイスを選択して詳細を表示</h3>
+              <h3 class="hud-console__headline">${galleryCopy.placeholderHeadline}</h3>
               <span class="hud-console__status">Idle Console</span>
             </div>
             <div class="hud-console__specs">
@@ -198,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <span class="hud-console__pill">SECONDARY — — —</span>
               <span class="hud-console__pill">NOISE / RANGE — — —</span>
             </div>
-            <p class="hud-console__note">* 上のカードをクリックすると、このコンソールがそれぞれのデバイス用 UI に切り替わります。</p>
+            <p class="hud-console__note">${galleryCopy.placeholderNote}</p>
           </div>
         </div>
       </div>
