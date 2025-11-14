@@ -8,7 +8,10 @@
   display: contents; /* 外側の箱を視覚的に消去 */
 }
 
-.about-luxe .about-block__grid,
+.section.about-luxe {
+  padding-bottom: clamp(8rem, 24vw, 16rem);
+}
+
 .about-luxe .about-block__grid2 {
   display: flex;
   gap: clamp(1.6rem, 4vw, 2.4rem);
@@ -48,7 +51,6 @@
 .about-luxe .about-block .about-visual.card { background: transparent; border: 0; box-shadow: none; padding: 0; }
 
 /* Hide original visual inside the left column; use dedicated right visual */
-.about-luxe .about-copy .panel-visual { display: none; }
 .about-luxe .about-block__visual {
   display: grid;
   align-self: stretch;
@@ -94,7 +96,7 @@
   grid-template-columns: minmax(120px, 0.6fr) 1fr;
   gap: clamp(1rem, 3vw, 1.6rem);
   align-items: center;
-  margin-top: clamp(1.8rem, 4vw, 2.4rem);
+  margin-top: clamp(3.6rem, 8vw, 4.8rem);
   text-decoration: none;
 }
 
@@ -146,7 +148,6 @@
 .about-luxe .ai-teaser__details .panel-list { margin: 0; }
 
 @media (max-width: 980px) {
-  .about-luxe .about-block__grid,
   .about-luxe .about-block__grid2 {
     flex-direction: column;
   }
@@ -154,10 +155,3 @@
   .about-luxe .ai-teaser__media { min-height: 40px; aspect-ratio: 3 / 4; }
   .about-luxe .ai-ph { min-height: 40px; aspect-ratio: 3 / 4; }
 }
-
-/* 旧レイアウトを非表示（新しい grid2 を使用） */
-.about-luxe .about-block__grid { display: none; }
-
-/* 箱（about-block）内の既存コンテンツを非表示にする */
-.about-luxe .about-block__grid { display: none !important; }
-.about-luxe .about-block .section-head { display: none !important; }
