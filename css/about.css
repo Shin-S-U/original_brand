@@ -24,8 +24,8 @@
   align-self: stretch;
   min-width: 0;
 }
-.about-luxe .about-block__grid2 .about-copy { flex: 1 1 0; }
-.about-luxe .about-block__grid2 .about-block__visual { flex: 1.2 1 0; }
+.about-luxe .about-block__grid2 .about-copy { flex: 1.1 1 0; }
+.about-luxe .about-block__grid2 .about-block__visual { flex: 1 1 0; }
 
 .about-luxe .card {
   border: 1px solid var(--outline, var(--line));
