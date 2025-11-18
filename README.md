@@ -53,6 +53,12 @@
 
 ---
 
+## 📄 企画書
+
+L.U.X.E. Webサイト企画書（PDF）は [こちら](./docs/luxe_proposal.pdf) から閲覧できます。
+
+---
+
 ## 📁 ディレクトリ構成
 
 ```bash
@@ -70,4 +76,5 @@
 ├─ images/             # 本番で使用している画像
 ├─ fonts/              # Webフォント
 ├─ concept.images/     # コンセプト段階で作成した未使用画像
+├─ docs/               # L.U.X.E.の企画書
 └─ README.md
