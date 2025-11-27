@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let textLiftProgress = 0;
     let textLiftAccum = 0;
     const textLiftDistance = 240; // テキストを上部位置まで引き上げるスクロール量
-    const textLiftMax = 210; // 上方向への移動量(px) を少し上げて最大位置を高める
+    const textLiftMax = 270; // 上方向への移動量(px) を少し上げて最大位置を高める
     let textLiftReady = false;
     let textLiftReadyTimer = 0;
     const textLiftDelay = 900; // テキスト出現完了から持ち上げ開始までのディレイ(ms)
@@ -515,6 +515,9 @@ document.addEventListener("DOMContentLoaded", () => {
           bottomAppearReady = false;
           clearTimeout(bottomAppearTimer);
           bottomAppearTimer = 0;
+          imageAppearReady = false;
+          clearTimeout(imageAppearTimer);
+          imageAppearTimer = 0;
         }
 
         const peekAccum = peekProgress * peekRevealDistance;
