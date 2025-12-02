@@ -228,6 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let peekReleaseTimer = 0;
     let peekReleased = false;
     let peekAnchor = null;
+    let peekReleaseY = 0;
 
     const ensurePeekAnchor = () => {
       if (peekAnchor || !aerisSection?.parentElement) return;
@@ -371,6 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
       clearTimeout(peekReleaseTimer);
       peekReleaseTimer = 0;
       const currentDocTop = peekEl.getBoundingClientRect().top + window.scrollY;
+      peekReleaseY = currentDocTop;
       peekReleased = true;
       lockActivated = false;
       document.body.classList.remove("is-about-locked");
@@ -394,6 +396,41 @@ document.addEventListener("DOMContentLoaded", () => {
         peekAnchor.style.marginTop = `${shift}px`;
         peekAnchor.style.minHeight = `${peekEl.offsetHeight || window.innerHeight}px`;
         peekAnchor.appendChild(peekEl);
+      }
+    };
+
+    const reattachPeek = () => {
+      if (!peekReleased || !peekAnchor) return;
+      const header = document.querySelector(".site-header");
+      const headerHeight = header?.offsetHeight || 0;
+      peekAnchor.style.marginTop = "";
+      peekAnchor.style.minHeight = "";
+      if (peekEl.parentElement === peekAnchor) {
+        peekAnchor.removeChild(peekEl);
+      }
+      document.body.appendChild(peekEl);
+      peekEl.classList.remove("is-free");
+      peekEl.style.setProperty("--peek-top", `${headerHeight}px`);
+      peekEl.style.setProperty("--peek-dim", "0");
+      peekReleased = false;
+      lockActivated = true;
+      originalScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = "auto";
+      document.body.classList.add("is-about-locked");
+      document.documentElement.classList.add("is-about-locked");
+      calcLimit();
+      clampScroll();
+      startMomentumGuard();
+    };
+
+    const maybeReattachPeek = () => {
+      if (!peekReleased || !peekAnchor) return;
+      const releaseDocY =
+        peekReleaseY || (peekAnchor.getBoundingClientRect().top + window.scrollY);
+      const reattachBuffer = Math.min(160, window.innerHeight * 0.08);
+      const triggerY = releaseDocY - reattachBuffer;
+      if (window.scrollY <= triggerY) {
+        reattachPeek();
       }
     };
 
@@ -662,6 +699,9 @@ document.addEventListener("DOMContentLoaded", () => {
     checkLockTrigger();
 
     window.addEventListener("scroll", () => {
+      if (peekReleased) {
+        maybeReattachPeek();
+      }
       checkLockTrigger();
       throttledClamp();
     });
