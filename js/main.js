@@ -174,6 +174,8 @@ document.addEventListener("DOMContentLoaded", () => {
   (() => {
     const aboutSection = document.getElementById("about");
     const visual = aboutSection?.querySelector(".about-block__visual");
+    const aerisSection =
+      document.getElementById("aeris-peek-source") || document.getElementById("aeris");
     if (!aboutSection || !visual) return;
 
     let lockActivated = false;
@@ -221,6 +223,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const bottomAppearDelay = 220; // 上段完了から下段開始までのディレイ(ms)
     let bottomDelayAccum = 0;
     const bottomDelayDistance = 140; // 下段開始前に必要な追加スクロール量
+    const peekReleaseDelay = 800; // 全演出完了後にフローへ戻すまでの遅延(ms)
+    let peekReleaseScheduled = false;
+    let peekReleaseTimer = 0;
+    let peekReleased = false;
+    let peekAnchor = null;
+
+    const ensurePeekAnchor = () => {
+      if (peekAnchor || !aerisSection?.parentElement) return;
+      peekAnchor = document.createElement("div");
+      peekAnchor.className = "aeris-peek-anchor";
+      aerisSection.parentElement.insertBefore(peekAnchor, aerisSection);
+    };
 
     const peekEl = (() => {
       const el = document.createElement("div");
@@ -260,7 +274,8 @@ document.addEventListener("DOMContentLoaded", () => {
     })();
 
     const hydratePeekContent = () => {
-      const aerisSection = document.getElementById("aeris");
+      const aerisSection =
+        document.getElementById("aeris-peek-source") || document.getElementById("aeris");
       if (!aerisSection) return;
       const getText = (selector) => aerisSection.querySelector(selector)?.textContent?.trim() || "";
       const kicker = getText(".aeris-kicker");
@@ -297,6 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const showPeek = () => {
+      if (peekReleased) return;
       if (peekShown) return;
       if (!peekEl.isConnected) {
         document.body.appendChild(peekEl);
@@ -347,6 +363,38 @@ document.addEventListener("DOMContentLoaded", () => {
       peekReadyTimer = window.setTimeout(() => {
         peekReady = true;
       }, 500); // いったん停止してから動き始めるまでの猶予
+    };
+
+    const releasePeek = () => {
+      if (peekReleased) return;
+      peekReleaseScheduled = false;
+      clearTimeout(peekReleaseTimer);
+      peekReleaseTimer = 0;
+      const currentDocTop = peekEl.getBoundingClientRect().top + window.scrollY;
+      peekReleased = true;
+      lockActivated = false;
+      document.body.classList.remove("is-about-locked");
+      document.documentElement.classList.remove("is-about-locked");
+      document.documentElement.style.scrollBehavior = originalScrollBehavior;
+      if (momentumGuardId) {
+        cancelAnimationFrame(momentumGuardId);
+        momentumGuardId = 0;
+      }
+      clearTimeout(momentumGuardTimer);
+      momentumGuardTimer = 0;
+      clearTimeout(peekReadyTimer);
+      peekReadyTimer = 0;
+      peekEl.classList.add("is-free");
+      peekEl.style.setProperty("--peek-top", "0px");
+      peekEl.style.setProperty("--peek-dim", "0");
+      ensurePeekAnchor();
+      if (peekAnchor) {
+        const anchorTop = peekAnchor.getBoundingClientRect().top + window.scrollY;
+        const shift = currentDocTop - anchorTop;
+        peekAnchor.style.marginTop = `${shift}px`;
+        peekAnchor.style.minHeight = `${peekEl.offsetHeight || window.innerHeight}px`;
+        peekAnchor.appendChild(peekEl);
+      }
     };
 
     const advancePeek = (delta) => {
@@ -539,6 +587,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const cardFollowBase = 240; // テキスト直下に寄せるための基準オフセット
       const cardFollowLift = textLiftProgress * (textLiftMax * 0.6);
       peekEl.style.setProperty("--peek-card-follow", `${cardFollowBase - cardFollowLift}px`);
+      const isPeekComplete =
+        peekProgress >= 0.999 &&
+        textProgress >= 1 &&
+        textLiftProgress >= 1 &&
+        topPairProgress >= 1 &&
+        bottomPairProgress >= 1;
+      if (isPeekComplete) {
+        if (!peekReleaseScheduled) {
+          peekReleaseScheduled = true;
+          peekReleaseTimer = window.setTimeout(releasePeek, peekReleaseDelay);
+        }
+      } else if (peekReleaseScheduled) {
+        peekReleaseScheduled = false;
+        clearTimeout(peekReleaseTimer);
+        peekReleaseTimer = 0;
+      }
     };
 
     const calcLimit = () => {
@@ -571,7 +635,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const activateLock = () => {
-      if (lockActivated) return;
+      if (lockActivated || peekReleased) return;
       lockActivated = true;
       originalScrollBehavior = document.documentElement.style.scrollBehavior;
       document.documentElement.style.scrollBehavior = "auto";
@@ -584,7 +648,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const checkLockTrigger = () => {
-      if (lockActivated) return;
+      if (lockActivated || peekReleased) return;
       const rect = visual.getBoundingClientRect();
       const triggerPoint = window.innerHeight * 0.75;
       if (rect.top <= triggerPoint) {
