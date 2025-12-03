@@ -70,7 +70,8 @@ L.U.X.E. Webサイト企画書（PDF）は [こちら](./docs/luxe_proposal.pdf)
 │  ├─ style.css        # 全体の共通スタイル
 │  └─ about.css        # 一部セクション用の追加スタイル
 ├─ js/
-│  ├─ main.js          # ナビ・スクロール処理など共通スクリプト
+│  ├─ main.js          # ナビ・スクロール処理など (JA) 用スクリプト
+│  ├─ main-en.js       # ナビ・スクロール処理など (EN) 用スクリプト
 │  ├─ product.js       # Devices (JA) 用スクリプト
 │  └─ product-en.js    # Devices (EN) 用スクリプト
 ├─ images/             # 本番で使用している画像
